@@ -1,8 +1,17 @@
-import React, {useState} from "react";
+import 'react-native-gesture-handler';
+import React, {useState, useCallback} from "react";
 import { Text, View, StyleSheet, Switch } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Checkbox } from "react-native-elements";
 import RNPickerSelect from "react-native-picker-select";
+import RangeSlider from 'rn-range-slider';
+
+import Thumb from '../Slider/Thumb';
+import Rail from '../Slider/Rail';
+import RailSelected from '../Slider/RailSelected';
+import Notch from '../Slider/Notch';
+import Label from '../Slider/Label';
+
 
 
 const Filter = () => {
@@ -15,6 +24,24 @@ const Filter = () => {
 	const [size, setSize] = useState(['Pequeno', 'Médio', 'Grande'])
   
 	const [isSelected, setSelection] = useState(false);
+
+
+	const [rangeDisabled, setRangeDisabled] = useState(false);
+	const [low, setLow] = useState(0);
+	const [high, setHigh] = useState(25);
+	const [min, setMin] = useState(0);
+	const [max, setMax] = useState(100);
+	const [floatingLabel, setFloatingLabel] = useState(false);
+
+	const renderThumb = useCallback(() => <Thumb/>, []);
+	const renderRail = useCallback(() => <Rail/>, []);
+	const renderRailSelected = useCallback(() => <RailSelected/>, []);
+	const renderLabel = useCallback(value => <Label text={value}/>, []);
+	const renderNotch = useCallback(() => <Notch/>, []);
+	const handleValueChange = useCallback((low, high) => {
+  		setLow(low);
+  		setHigh(high);
+	}, []);
 
 	return (
 		
@@ -50,6 +77,24 @@ const Filter = () => {
 		  	value={catIsEnabled}
 			/>
 		</View>
+
+		<View style={styles.sliderView}>
+			<Text style={{flexDirection:'row', color: 'grey', fontWeight: 'bold', fontSize: 16}}>Idade</Text>
+			<RangeSlider
+  				style={styles.slider}
+  				min={0}
+  				max={25}
+  				step={1}
+  				floatingLabel
+  				renderThumb={renderThumb}
+  				renderRail={renderRail}
+  				renderRailSelected={renderRailSelected}
+  				renderLabel={renderLabel}
+  				renderNotch={renderNotch}
+  				onValueChanged={handleValueChange}
+			/>
+		</View>
+
 		<View>
 		<RNPickerSelect
                  onValueChange={(size) => setSize(size)}
@@ -87,6 +132,24 @@ const Filter = () => {
         color: 'black',
         paddingRight: 30,
 		useNativeAndroidPickerStyle:'false',		
+	},
+	sliderView: {
+		left: 10,
+		top: 30,
+		bottom: 100,
+		width: 390,
+		height: 50,
+		paddingTop: 12,
+		paddingLeft: 10,
+		paddingRight: 10,
+		flexDirection: 'row',
+		borderWidth: 2,
+		borderColor: 'grey',
+	},
+	slider: {
+		width: 320,
+		paddingLeft: 50,
+		
 	}
   });
   
