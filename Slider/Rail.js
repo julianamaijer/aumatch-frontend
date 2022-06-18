@@ -12,8 +12,8 @@ export default memo(Rail);
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    height: 7,
+    height: 4,
     borderRadius: 2,
-    backgroundColor: '#00ced1',
+    backgroundColor: '#7f7f7f',
   },
 });

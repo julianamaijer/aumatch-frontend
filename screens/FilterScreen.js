@@ -12,6 +12,7 @@ import RailSelected from '../Slider/RailSelected';
 import Notch from '../Slider/Notch';
 import Label from '../Slider/Label';
 
+import { Button } from 'react-native-paper';
 
 
 const Filter = () => {
@@ -24,6 +25,7 @@ const Filter = () => {
 	const [size, setSize] = useState(['Pequeno', 'Médio', 'Grande'])
   
 	const [isSelected, setSelection] = useState(false);
+
 
 
 	const [rangeDisabled, setRangeDisabled] = useState(false);
@@ -42,6 +44,9 @@ const Filter = () => {
   		setLow(low);
   		setHigh(high);
 	}, []);
+
+
+	const [ language, setLanguage ] = useState("");
 
 	return (
 		
@@ -78,6 +83,40 @@ const Filter = () => {
 			/>
 		</View>
 
+		<View style={{ paddingVertical: 15 }} />
+
+		<View>
+		<RNPickerSelect
+		         placeholder={{ label: "Selecione o porte do animal", value: null }}
+                 onValueChange={(size) => setSize(size)}
+                 items={[
+                     { label: "Não há preferência", value: "" },
+                     { label: "Pequeno", value: "SMALL" },
+                     { label: "Médio", value: "MEDIUM" },
+                     { label: "Grande", value: "LARGE" },
+                 ]}
+				 style={{ ...pickerSelectStyles }}
+				 inputIOS={customPickerStyles.inputIOS}
+             />
+		</View>
+		<View style={{ paddingVertical: 15 }} />
+
+		<View>
+		<RNPickerSelect
+		         placeholder={{ label: "Selecione o sexo do animal", value: null }}
+                 onValueChange={(size) => setSize(size)}
+                 items={[
+                     { label: "Não há preferência", value: "" },
+                     { label: "Macho", value: "MACHO" },
+                     { label: "Femea", value: "FEMEA" },
+                 ]}
+				 style={{ ...pickerSelectStyles }}
+				 inputIOS={customPickerStyles.inputIOS}
+             />
+		</View>
+
+		<View style={{ paddingVertical: 15 }} />
+
 		<View style={styles.sliderView}>
 			<Text style={{flexDirection:'row', color: 'grey', fontWeight: 'bold', fontSize: 16}}>Idade</Text>
 			<RangeSlider
@@ -95,19 +134,36 @@ const Filter = () => {
 			/>
 		</View>
 
-		<View>
-		<RNPickerSelect
-                 onValueChange={(size) => setSize(size)}
-                 items={[
-                     { label: "Não há preferência", value: "" },
-                     { label: "Pequeno", value: "SMALL" },
-                     { label: "Médio", value: "MEDIUM" },
-                     { label: "Grande", value: "LARGE" },
-                 ]}
-				 style={styles.inputIOS}
-				 inputIOS={styles.inputIOS}
-             />
+		<View style={{ paddingVertical:15}} />
+
+		<View style={styles.sliderView}>
+			<Text style={{flexDirection:'row', color: 'grey', fontWeight: 'bold', fontSize: 16}}>Distância</Text>
+			<RangeSlider
+  				style={styles.sliderDistancia}
+  				min={0}
+  				max={25}
+  				step={1}
+  				floatingLabel
+  				renderThumb={renderThumb}
+  				renderRail={renderRail}
+  				renderRailSelected={renderRailSelected}
+  				renderLabel={renderLabel}
+  				renderNotch={renderNotch}
+  				onValueChanged={handleValueChange}
+			/>
 		</View>
+
+		<View style={{ paddingVertical: 40 }} />
+
+		<View>
+			<Button
+			mode="contained"
+			style = {styles.button}
+			onPress={() => console.log('Pressed')}>
+				Pesquisar
+			</Button>
+		</View>
+
 	  </View>
 	);
   }
@@ -150,7 +206,73 @@ const Filter = () => {
 		width: 320,
 		paddingLeft: 50,
 		
-	}
+	},
+	sliderDistancia: {
+		width: 290,
+		paddingLeft: 22,
+		
+	},
+	button: {
+		width: 390,
+		left: 10,
+		alignItems: 'center',
+		justifyContent: 'center',
+		paddingVertical: 12,
+		paddingHorizontal: 32,
+		borderRadius: 4,
+		elevation: 3,
+		backgroundColor: '#00ced1',
+	  },
+	  text: {
+		fontSize: 16,
+		lineHeight: 21,
+		fontWeight: 'bold',
+		letterSpacing: 0.25,
+		color: 'white',
+	  },
   });
+
+  const customPickerStyles = StyleSheet.create({
+	inputIOS: {
+	  fontSize: 30,
+	  paddingVertical: 10,
+	  paddingHorizontal: 12,
+	  borderWidth: 1,
+	  borderColor: 'green',
+	  borderRadius: 8,
+	  color: 'black',
+	  paddingRight: 30, // to ensure the text is never behind the icon
+	},
+	inputAndroid: {
+	  fontSize: 30,
+	  paddingHorizontal: 10,
+	  paddingVertical: 8,
+	  borderWidth: 1,
+	  borderColor: 'blue',
+	  borderRadius: 8,
+	  color: 'black',
+	  paddingRight: 30, // to ensure the text is never behind the icon
+	},
+  });
+
+
+const pickerSelectStyles = StyleSheet.create({
+    inputIOS: {
+		left: 10,
+		top: 10,
+		bottom: 100,
+		width: 390,
+        fontSize: 18,
+        paddingTop: 13,
+        paddingHorizontal: 10,
+        paddingBottom: 12,
+        borderWidth: 0.5,
+        borderColor: 'gray',
+        borderRadius: 4,
+        backgroundColor: 'white',
+        color: 'black',
+    },
+});
+
   
   export default Filter;
