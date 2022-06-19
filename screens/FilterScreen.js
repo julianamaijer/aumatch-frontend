@@ -115,7 +115,7 @@ const Filter = () => {
              />
 		</View>
 
-		<View style={{ paddingVertical: 15 }} />
+		<View style={{ paddingVertical:71 }} />
 
 		<View style={styles.sliderView}>
 			<Text style={{flexDirection:'row', color: 'grey', fontWeight: 'bold', fontSize: 16}}>Idade</Text>
@@ -191,7 +191,6 @@ const Filter = () => {
 	},
 	sliderView: {
 		left: 10,
-		top: 30,
 		bottom: 100,
 		width: 390,
 		height: 50,
