@@ -153,7 +153,6 @@ const Filter = () => {
 			/>
 		</View>
 
-		<View style={{ paddingVertical: 40 }} />
 
 		<View>
 			<Button
