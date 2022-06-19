@@ -2,51 +2,49 @@ import React, { Component } from 'react';
 import { Button, View, Text,Keyboard, Platform, StyleSheet,TextInput } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import axios from "axios";
+
+
+const baseUrl = "http://192.168.15.41:8080/aumatch/v1/adotantes";
 
 export default class RegisterScreen extends Component {
+  nomeInputRef = React.createRef();
+  sobrenomeInputRef = React.createRef();
   emailInputRef = React.createRef();
-  passwordInputRef = React.createRef();
-  firstnameInputRef = React.createRef();
-  lastnameInputRef = React.createRef();
-  occupationInputRef = React.createRef();
-  addressInputRef = React.createRef();
-  zipInputRef = React.createRef();
-  phoneInputRef = React.createRef();
+  telefoneInputRef = React.createRef();
+  idadeInputRef = React.createRef();
+  descricaoDoPerfilInputRef = React.createRef();
+
   scrollViewRef = React.createRef();
+
 
   constructor(props) {
     super(props);
     this.state = {
+        nome: '',
+        sobrenome: '',
         email: '',
-        password: '',
-        firstname: '',
-        lastname: '',
-        occupation: '',
-        address: '',
-        zip: '',
-        phone: '',
+        telefone: '',
+        idade: '',
+        descricaoDoPerfil: '',
+        shownomeError: false,
+        showsobrenomeError: false,
         showEmailError: false,
-        showPasswordError: false,
-        showFirstnameError: false,
-        showLastnameError: false,
-        showOccupationError: false,
-        showAddressError: false,
-        showZipError: false,
-        showPhoneError: false,
+        showtelefoneError: false,
+        showidadeError: false,
+        showDescricaoDoPerfilError: false,
     };
     this.submitPressed = this.submitPressed.bind(this);
   }
 
   inputs = () => {
     return [
+      this.nomeInputRef,
+      this.sobrenomeInputRef,
       this.emailInputRef,
-      this.passwordInputRef,
-      this.firstnameInputRef,
-      this.lastnameInputRef,
-      this.occupationInputRef,
-      this.addressInputRef,
-      this.zipInputRef,
-      this.phoneInputRef,
+      this.telefoneInputRef,
+      this.idadeInputRef,
+      this.descricaoDoPerfilInputRef,
     ];
   };
 
@@ -97,6 +95,12 @@ export default class RegisterScreen extends Component {
     this.setFocus(this.inputs()[activeIndex], false);
   }
 
+  onSuccess()
+  {
+      console.log("Sucesso!!!")
+      this.props.navigation.navigate('Home');
+  }
+
   setFocus(textInputRef, shouldFocus) {
     if (shouldFocus) {
         setTimeout(() => {
@@ -108,18 +112,40 @@ export default class RegisterScreen extends Component {
   }
 
   submitPressed() {
-    console.log("submitPressed this.state: ", this.state);
-    this.setState({
-        showEmailError: this.state.email.length < 4,
-        showPasswordError: this.state.password.length < 4,
-        showFirstnameError: this.state.firstname.length < 4,
-        showLastnameError: this.state.lastname.length < 4,
-        showOccupationError: this.state.occupation.length < 4,
-        showAddressError: this.state.address.length < 4,
-        showZipError: this.state.zip.length < 4,
-        showPhoneError: this.state.phone.length < 4,
-    });
+    const { nome, sobrenome, email, telefone, idade, descricaoDoPerfil} = this.state;
+
+  if(nome.length < 1 || sobrenome.length < 1 || email.length < 1 || telefone.length < 1 || idade.length < 1 || descricaoDoPerfil.length < 1){
+      this.setState({
+        shownomeError: nome.length < 1,
+        showsobrenomeError: sobrenome.length < 1,
+        showEmailError: email.length < 1,
+        showtelefoneError: telefone.length < 1,
+        showidadeError: idade.length < 1,
+        showDescricaoDoPerfilError: descricaoDoPerfil.length < 1});
+  }else{
+    const configurationObject = {
+      url: baseUrl,
+      method: "POST",
+      data: { nome, sobrenome, email, telefone, idade, descricaoDoPerfil },
+    };
+
+    axios(configurationObject)
+      .then((response) => {
+        if (response.status === 201) {
+        //  alert(` You have updated: ${JSON.stringify(response.data)}`);
+        alert(`Cadastro feito com sucesso!`);
+        this.props.navigation.navigate('Home');
+      } else {
+        alert(`Ops, ocorreu um erro, tente mais tarde`);
+          throw new Error("An error has occurred ",response);
+        }
+      })
+      .catch(error => console.log(error.response));
+     
+
     Keyboard.dismiss();
+  }
+
   }
 
   render() {
@@ -143,6 +169,36 @@ export default class RegisterScreen extends Component {
 
                 <Text style={styles.header}>Registrar</Text>
 
+
+                <View style={styles.inputTextWrapper}>
+                    <TextInput
+                        placeholder="Nome"
+                        style={styles.textInput}
+                        returnKeyType="next"
+                        onSubmitEditing={this.editNextInput}
+                        onFocus={this.onInputFocus}
+                        onChangeText={(val) => {this.setState({ nome: val });}}
+                    />
+                    {this.state.shownomeError &&
+                        <Text style={styles.errorText}>Por favor preencha seu primeiro nome.</Text>
+                    }
+                </View>
+
+                <View style={styles.inputTextWrapper}>
+                    <TextInput
+                        placeholder="Sobrenome"
+                        style={styles.textInput}
+                        returnKeyType="next"
+                        onSubmitEditing={this.editNextInput}
+                        onFocus={this.onInputFocus}
+                        onChangeText={(val) => {this.setState({ sobrenome: val });}}
+                        ref={this.sobrenomeInputRef}
+                      />
+                    {this.state.showsobrenomeError &&
+                        <Text style={styles.errorText}>Por favor preencha seu sobrenome.</Text>
+                    }
+                </View>
+
                 <View style={styles.inputTextWrapper}>
                     <TextInput
                         placeholder="Email"
@@ -150,7 +206,7 @@ export default class RegisterScreen extends Component {
                         returnKeyType="next"
                         onSubmitEditing={this.editNextInput}
                         onFocus={this.onInputFocus}
-                        onChangeText={this.onChangeInputHandler}
+                        onChangeText={(val) => {this.setState({ email: val });}}
                         ref={this.emailInputRef}
                     />
                     {this.state.showEmailError &&
@@ -160,111 +216,47 @@ export default class RegisterScreen extends Component {
 
                 <View style={styles.inputTextWrapper}>
                     <TextInput
-                        placeholder="Password"
-                        style={styles.textInput}
-                        secureTextEntry={true}
-                        returnKeyType="next"
-                        onSubmitEditing={this.editNextInput}
-                        onFocus={this.onInputFocus}
-                        onChangeText={this.onChangeInputHandler}
-                        ref={this.passwordInputRef}
-                    />
-                    {this.state.showPasswordError &&
-                        <Text style={styles.errorText}>Please enter a password.</Text>
-                    }
-                </View>
-
-                <View style={styles.inputTextWrapper}>
-                    <TextInput
-                        placeholder="First Name"
-                        style={styles.textInput}
-                        returnKeyType="next"
-                        onSubmitEditing={this.editNextInput}
-                        onFocus={this.onInputFocus}
-                        onChangeText={this.onChangeInputHandler}
-                        ref={this.firstnameInputRef}
-                    />
-                    {this.state.showFirstnameError &&
-                        <Text style={styles.errorText}>Please enter your first name.</Text>
-                    }
-                </View>
-
-                <View style={styles.inputTextWrapper}>
-                    <TextInput
-                        placeholder="Last Name"
-                        style={styles.textInput}
-                        returnKeyType="next"
-                        onSubmitEditing={this.editNextInput}
-                        onFocus={this.onInputFocus}
-                        onChangeText={this.onChangeInputHandler}
-                        ref={this.lastnameInputRef}
-                      />
-                    {this.state.showLastnameError &&
-                        <Text style={styles.errorText}>Please enter your last name.</Text>
-                    }
-                </View>
-
-                <View style={styles.inputTextWrapper}>
-                    <TextInput
-                        placeholder="Occupation"
-                        style={styles.textInput}
-                        returnKeyType="next"
-                        onSubmitEditing={this.editNextInput}
-                        onFocus={this.onInputFocus}
-                        onChangeText={this.onChangeInputHandler}
-                        ref={this.occupationInputRef}
-                    />
-                    {this.state.showOccupationError &&
-                        <Text style={styles.errorText}>Please enter your occupation.</Text>
-                    }
-                </View>
-
-                <View style={styles.inputTextWrapper}>
-                    <TextInput
-                        placeholder="Address"
-                        style={styles.textInput}
-                        returnKeyType="next"
-                        onSubmitEditing={this.editNextInput}
-                        onFocus={this.onInputFocus}
-                        onChangeText={this.onChangeInputHandler}
-                        ref={this.addressInputRef}
-                      />
-                    {this.state.showAddressError &&
-                        <Text style={styles.errorText}>Please enter your address.</Text>
-                    }
-                </View>
-
-                <View style={styles.inputTextWrapper}>
-                    <TextInput
-                        placeholder="Zipcode"
-                        style={styles.textInput}
-                        returnKeyType="next"
-                        keyboardType='numeric'
-                        onSubmitEditing={this.editNextInput}
-                        onFocus={this.onInputFocus}
-                        onChangeText={this.onChangeInputHandler}
-                        ref={this.zipInputRef}
-                    />
-                    {this.state.showZipError &&
-                        <Text style={styles.errorText}>Please enter your zipcode.</Text>
-                    }
-                </View>
-
-                <View style={styles.inputTextWrapper}>
-                    <TextInput
-                        placeholder="Phone"
+                        placeholder="Telefone"
                         style={styles.textInput}
                         returnKeyType="done"
                         onSubmitEditing={this.editNextInput}
                         onFocus={this.onInputFocus}
-                        onChangeText={this.onChangeInputHandler}
-                        ref={this.phoneInputRef}
+                        onChangeText={(val) => {this.setState({ telefone: val });}}
+                        ref={this.telefoneInputRef}
                     />
-                    {this.state.showPhoneError &&
-                        <Text style={styles.errorText}>Please enter your phone number.</Text>
+                    {this.state.showtelefoneError &&
+                        <Text style={styles.errorText}>Por favor preencha seu telefone.</Text>
+                    }
+                </View>
+                <View style={styles.inputTextWrapper}>
+                    <TextInput
+                        placeholder="Idade"
+                        style={styles.textInput}
+                        returnKeyType="done"
+                        onSubmitEditing={this.editNextInput}
+                        onFocus={this.onInputFocus}
+                        onChangeText={(val) => {this.setState({ idade: val });}}
+                        ref={this.idadeInputRef}
+                    />
+                    {this.state.showidadeError &&
+                        <Text style={styles.errorText}>Por favor preencha sua idade.</Text>
                     }
                 </View>
 
+                <View style={styles.inputTextWrapper}>
+                    <TextInput
+                        placeholder="Descricao do perfil"
+                        style={styles.textInput}
+                        returnKeyType="done"
+                        onSubmitEditing={this.editNextInput}
+                        onFocus={this.onInputFocus}
+                        onChangeText={(val) => {this.setState({ descricaoDoPerfil: val });}}
+                        ref={this.descricaoDoPerfilRef}
+                    />
+                    {this.state.showDescricaoDoPerfilError &&
+                        <Text style={styles.errorText}>Por favor preencha sua descrição do perfil.</Text>
+                    }
+                </View>
                 <View style={styles.btnContainer}>
                   <Button title="Cadastrar" onPress={this.submitPressed} />
                 </View>
