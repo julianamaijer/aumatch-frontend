@@ -21,15 +21,22 @@ const Filter = ({navigation}) => {
 	const [catIsEnabled, setCatIsEnabled] = useState(false);
 	const toggleCatSwitch = () => setCatIsEnabled(previousState => !previousState);
 
-	const [size, setSize] = useState(['Pequeno', 'Médio', 'Grande'])
-	const [sex, setSex] = useState(['MACHO', 'FEMEA'])
+	const [size, setSize] = useState()
+	const [sex, setSex] = useState()
 
   
-	const [low, setLow] = useState(0);
-	const [high, setHigh] = useState(25);
-	const handleValueChange = useCallback((low, high) => {
-  		setLow(low);
-  		setHigh(high);
+	const [ageLow, setAgeLow] = useState(0);
+	const [ageHigth, setAgeHigh] = useState(25);
+	const handleAgeValueChange = useCallback((ageLow, ageHigth) => {
+		setAgeLow(ageLow);
+		setAgeHigh(ageHigth);
+	}, []);
+
+	const [distanceLow, setDistanceLow] = useState(0);
+	const [distanceHigh, setDistanceHigh] = useState(25);
+	const handleDistanceValueChange = useCallback((distanceLow, distanceHigh) => {
+		setDistanceLow(distanceLow);
+		setDistanceHigh(distanceHigh);
 	}, []);
 
 	const renderThumb = useCallback(() => <Thumb/>, []);
@@ -40,9 +47,17 @@ const Filter = ({navigation}) => {
 
 
 	const submit = () => {
-	    navigation.navigate('SearchScreen', {dogIsEnabled: dogIsEnabled, catIsEnabled:catIsEnabled, petSize: size, petSex: sex});
-	//	navigation.navigate('SearchScreen', {screen: 'SearchScreen',params: { itemId: "foo", otherParam: "bar" }})
-	
+	    navigation.navigate('SearchScreen', {
+			dogIsEnabled: dogIsEnabled, 
+			catIsEnabled:catIsEnabled, 
+			petSize: size, 
+			petSex: sex,
+			ageLow: ageLow,
+			ageHigth: ageHigth,
+			distanceLow: distanceLow,
+			distanceHigh: distanceHigh
+		});	
+
 	}
 
 
@@ -129,7 +144,7 @@ const Filter = ({navigation}) => {
   				renderRailSelected={renderRailSelected}
   				renderLabel={renderLabel}
   				renderNotch={renderNotch}
-  				onValueChanged={handleValueChange}
+  				onValueChanged={handleAgeValueChange}
 			/>
 		</View>
 
@@ -148,7 +163,7 @@ const Filter = ({navigation}) => {
   				renderRailSelected={renderRailSelected}
   				renderLabel={renderLabel}
   				renderNotch={renderNotch}
-  				onValueChanged={handleValueChange}
+  				onValueChanged={handleDistanceValueChange}
 			/>
 		</View>
 

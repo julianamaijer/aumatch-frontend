@@ -14,20 +14,36 @@ const SearchScreen =({ navigation})  => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const swipesRef = useRef(null)
 
-  const { dogIsEnabled, catIsEnabled, petSize, petSex} = navigation?.state?.params || {};
+
+  const { dogIsEnabled, catIsEnabled, petSize, petSex, ageLow, ageHigth, distanceLow, distanceHigh } = navigation?.state?.params || {};
 
   const [load,setLoad] = useState(true)
 
 
   async function fetchanimals() {
-    console.log(dogIsEnabled)
-    console.log(catIsEnabled)
-    console.log(petSize)
-    console.log(petSex)
+    console.log("dogIsEnabled ",dogIsEnabled)
+    console.log("catIsEnabled ", catIsEnabled)
+    console.log("petSize ", petSize)
+    console.log("petSex ",petSex)
+    console.log("ageLow ", ageLow)
+    console.log("ageHigth ", ageHigth)
+    console.log("distanceLow ",distanceLow)
+    console.log("distanceHigh ", distanceHigh)
 
 
     try {
-      const { data } = await axios.get('http://192.168.15.41:8080/aumatch/v1/animais',{ params: { dogs: dogIsEnabled, cats: catIsEnabled, petSize: petSize} })
+      const { data } = await axios.get('http://192.168.15.41:8080/aumatch/v1/animais',
+      { 
+        params:{ 
+        dogs: dogIsEnabled,
+        cats: catIsEnabled, 
+        petSize: petSize,
+        ageLow: ageLow,
+        ageHigth: ageHigth,
+        distanceLow: distanceLow,
+        distanceHigh: distanceHigh
+      } 
+      })
       setAnimals(data)
 
     } catch (error) {
