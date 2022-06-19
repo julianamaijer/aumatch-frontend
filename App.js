@@ -20,10 +20,11 @@ const AppNavigator = createStackNavigator({
 	Register: {
 	  screen: RegisterScreen
 	},
-  Home : {
+  	Home : {
 	  screen: TabNavigator
 	}
   },{
 	initialRouteName: "Login"
   });
+
 const AppContainer = createAppContainer(AppNavigator);

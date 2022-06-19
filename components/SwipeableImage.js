@@ -80,7 +80,7 @@ export default function SwipeableImage({ animal, willLike, willPass }) {
     },
     photo: {
       width: 393,
-      height: '80%',
+      height: '75%',
       resizeMode: 'cover',
       borderRadius: 20,
     },

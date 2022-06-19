@@ -14,7 +14,7 @@ const TabNavigator = createMaterialTopTabNavigator(
 	HomeScreen: {
 	screen: HomeScreen,
 	navigationOptions: {
-		tabBarLabel: "Início",
+		tabBarLabel: "",
 		showLabel: ({ focused }) => {
 		console.log(focused);
 		return focused ? true : false;
@@ -31,7 +31,7 @@ const TabNavigator = createMaterialTopTabNavigator(
 	Filter: {
 	screen: FilterScreen,
 	navigationOptions: {
-		tabBarLabel: "Filtrar",
+		tabBarLabel: "",
 		tabBarIcon: (tabInfo) => (
 		<Ionicons
 			name="filter"
@@ -57,24 +57,10 @@ const TabNavigator = createMaterialTopTabNavigator(
 	ChatScreen: {
 		screen: ChatScreen,
 		navigationOptions: {
-			tabBarLabel: "Busque o pet!",
+			tabBarLabel: "",
 			tabBarIcon: (tabInfo) => (
 			<Ionicons
 				name="chatbubble-ellipses"
-				size={tabInfo.focused ? 26 : 23}
-				color={tabInfo.focused ? "#00ced1" : "black"}
-			/>
-			),
-		},
-	},
-	
-	Profile: {
-		screen: ProfileScreen,
-		navigationOptions: {
-			tabBarLabel: "Busque o pet!",
-			tabBarIcon: (tabInfo) => (
-			<Ionicons
-				name="person-circle"
 				size={tabInfo.focused ? 26 : 23}
 				color={tabInfo.focused ? "#00ced1" : "black"}
 			/>
@@ -88,7 +74,7 @@ const TabNavigator = createMaterialTopTabNavigator(
 
 	style: {
 		backgroundColor: "white",
-		marginTop: 40,
+		marginTop: 0,
 		height: 70,
 		shadowColor: '#000',
 	},
@@ -101,7 +87,7 @@ const Navigator = createAppContainer(TabNavigator);
 export default function App() {
 return (
 	<Navigator>
-	<HomeScreen />
+		<HomeScreen />
 	</Navigator>
 );
 }

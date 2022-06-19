@@ -5,7 +5,7 @@ import { FontAwesome } from '@expo/vector-icons'
 export default function BottomBar({ handleLikePress, handlePassPress }) {
     return (
       <View style={styles.container}>
-        <View />
+        <View/>
         <TouchableOpacity style={styles.button} onPress={handlePassPress}>
           <FontAwesome name="times" size={27} color="#F06795"></FontAwesome>
         </TouchableOpacity>
@@ -27,6 +27,7 @@ export default function BottomBar({ handleLikePress, handlePassPress }) {
     button: {
       width: 50,
       height: 50,
+      bottom: 20,
       backgroundColor: 'white',
       borderRadius: 25,
       justifyContent: 'center',
