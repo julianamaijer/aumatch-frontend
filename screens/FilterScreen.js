@@ -2,7 +2,6 @@ import 'react-native-gesture-handler';
 import React, {useState, useCallback} from "react";
 import { Text, View, StyleSheet, Switch } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { Checkbox } from "react-native-elements";
 import RNPickerSelect from "react-native-picker-select";
 import RangeSlider from 'rn-range-slider';
 
@@ -15,7 +14,7 @@ import Label from '../Slider/Label';
 import { Button } from 'react-native-paper';
 
 
-const Filter = () => {
+const Filter = ({navigation}) => {
 	const [dogIsEnabled, setDogIsEnabled] = useState(false);
 	const toggleDogSwitch = () => setDogIsEnabled(previousState => !previousState);
 
@@ -23,6 +22,8 @@ const Filter = () => {
 	const toggleCatSwitch = () => setCatIsEnabled(previousState => !previousState);
 
 	const [size, setSize] = useState(['Pequeno', 'Médio', 'Grande'])
+	const [sex, setSex] = useState(['MACHO', 'FEMEA'])
+
   
 	const [low, setLow] = useState(0);
 	const [high, setHigh] = useState(25);
@@ -36,6 +37,15 @@ const Filter = () => {
 	const renderRailSelected = useCallback(() => <RailSelected/>, []);
 	const renderLabel = useCallback(value => <Label text={value}/>, []);
 	const renderNotch = useCallback(() => <Notch/>, []);
+
+
+	const submit = () => {
+	    navigation.navigate('SearchScreen', {dogIsEnabled: dogIsEnabled, catIsEnabled:catIsEnabled, petSize: size, petSex: sex});
+	//	navigation.navigate('SearchScreen', {screen: 'SearchScreen',params: { itemId: "foo", otherParam: "bar" }})
+	
+	}
+
+
 
 	return (
 		
@@ -93,7 +103,7 @@ const Filter = () => {
 		<View>
 		<RNPickerSelect
 		         placeholder={{ label: "Selecione o sexo do animal", value: null }}
-                 onValueChange={(size) => setSize(size)}
+                 onValueChange={(sex) => setSex(sex)}
                  items={[
                      { label: "Não há preferência", value: "" },
                      { label: "Macho", value: "MACHO" },
@@ -147,7 +157,7 @@ const Filter = () => {
 			<Button
 			mode="contained"
 			style = {styles.button}
-			onPress={() => console.log('Pressed')}>
+			onPress={submit}>
 				Pesquisar
 			</Button>
 		</View>

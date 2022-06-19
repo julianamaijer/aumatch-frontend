@@ -6,26 +6,43 @@ import axios from 'axios';
 import BottomBar from '../components/BottomBar';
 import Swipes from '../components/Swipes';
 
-export default function SearchScreen() {
-  const [users, setUsers] = useState([])
+import { useFocusEffect } from '@react-navigation/native';
+
+
+const SearchScreen =({ navigation})  => {
+  const [animals, setAnimals] = useState([])
   const [currentIndex, setCurrentIndex] = useState(0)
   const swipesRef = useRef(null)
 
-  async function fetchUsers() {
+  const { dogIsEnabled, catIsEnabled, petSize, petSex} = navigation?.state?.params || {};
+
+  const [load,setLoad] = useState(true)
+
+
+  async function fetchanimals() {
+    console.log(dogIsEnabled)
+    console.log(catIsEnabled)
+    console.log(petSize)
+    console.log(petSex)
+
+
     try {
-      const { data } = await axios.get('https://randomuser.me/api/?gender=female&results=50')
-      setUsers(data.results)
+      const { data } = await axios.get('http://192.168.15.41:8080/aumatch/v1/animais',{ params: { dogs: dogIsEnabled, cats: catIsEnabled, petSize: petSize} })
+      setAnimals(data)
+
     } catch (error) {
       console.log(error)
-      Alert.alert('Error getting users', '', [{ text: 'Retry', onPress: () => fetchUsers() }])
+      Alert.alert('Error getting animals', '', [{ text: 'Retry', onPress: () => fetchanimals() }])
     }
   }
 
   useEffect(() => {
-    fetchUsers()
-  }, [])
+    fetchanimals()
+  }, [load,navigation ])
+
 
   function handleLike() {
+
     console.log('like')
     nextUser()
   }
@@ -36,7 +53,7 @@ export default function SearchScreen() {
   }
 
   function nextUser() {
-    const nextIndex = users.length - 2 === currentIndex ? 0 : currentIndex + 1
+    const nextIndex = animals.length - 2 === currentIndex ? 0 : currentIndex + 1
     setCurrentIndex(nextIndex)
   }
 
@@ -50,15 +67,15 @@ export default function SearchScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.swipes}>
-        {users.length > 1 &&
-          users.map(
+        {animals.length > 1 &&
+          animals.map(
             (u, i) =>
               currentIndex === i && (
                 <Swipes
                   key={i}
                   ref={swipesRef}
                   currentIndex={currentIndex}
-                  users={users}
+                  animals={animals}
                   handleLike={handleLike}
                   handlePass={handlePass}
                 ></Swipes>
@@ -89,3 +106,5 @@ const styles = StyleSheet.create({
     elevation: 7,
   },
 })
+
+export default SearchScreen;

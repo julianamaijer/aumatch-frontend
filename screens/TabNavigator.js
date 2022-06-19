@@ -11,7 +11,7 @@ import ProfileScreen from "./ProfileScreen"
 
 const TabNavigator = createMaterialTopTabNavigator(
 {
-	Home: {
+	HomeScreen: {
 	screen: HomeScreen,
 	navigationOptions: {
 		tabBarLabel: "Início",
@@ -41,7 +41,7 @@ const TabNavigator = createMaterialTopTabNavigator(
 		),
 	},
 	},
-	Search: {
+	SearchScreen: {
 		screen: SearchScreen,
 		navigationOptions: {
 			tabBarLabel: "",
@@ -54,7 +54,7 @@ const TabNavigator = createMaterialTopTabNavigator(
 			),
 		},
 		},
-	Chat: {
+	ChatScreen: {
 		screen: ChatScreen,
 		navigationOptions: {
 			tabBarLabel: "Busque o pet!",
@@ -66,7 +66,8 @@ const TabNavigator = createMaterialTopTabNavigator(
 			/>
 			),
 		},
-		},
+	},
+	
 	Profile: {
 		screen: ProfileScreen,
 		navigationOptions: {
@@ -79,7 +80,7 @@ const TabNavigator = createMaterialTopTabNavigator(
 			/>
 			),
 		},
-		},
+	},
 },
 {
 	tabBarOptions: {

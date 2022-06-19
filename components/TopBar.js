@@ -20,7 +20,7 @@ export default function TopBar(){
             <FontAwesome5 name ="filter" size={30} color="#00ced1"></FontAwesome5>
             <FontAwesome5 name ="search" size={30} color="#00ced1"></FontAwesome5>
             <FontAwesome name ="comments" size={30} color="#00ced1"></FontAwesome>
-            <FontAwesome name ="user" size={30} color="#00ced1"></FontAwesome>
+            <FontAwesome name ="animal" size={30} color="#00ced1"></FontAwesome>
         </View>
     )
 }
