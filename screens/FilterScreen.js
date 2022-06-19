@@ -24,29 +24,18 @@ const Filter = () => {
 
 	const [size, setSize] = useState(['Pequeno', 'Médio', 'Grande'])
   
-	const [isSelected, setSelection] = useState(false);
-
-
-
-	const [rangeDisabled, setRangeDisabled] = useState(false);
 	const [low, setLow] = useState(0);
 	const [high, setHigh] = useState(25);
-	const [min, setMin] = useState(0);
-	const [max, setMax] = useState(100);
-	const [floatingLabel, setFloatingLabel] = useState(false);
+	const handleValueChange = useCallback((low, high) => {
+  		setLow(low);
+  		setHigh(high);
+	}, []);
 
 	const renderThumb = useCallback(() => <Thumb/>, []);
 	const renderRail = useCallback(() => <Rail/>, []);
 	const renderRailSelected = useCallback(() => <RailSelected/>, []);
 	const renderLabel = useCallback(value => <Label text={value}/>, []);
 	const renderNotch = useCallback(() => <Notch/>, []);
-	const handleValueChange = useCallback((low, high) => {
-  		setLow(low);
-  		setHigh(high);
-	}, []);
-
-
-	const [ language, setLanguage ] = useState("");
 
 	return (
 		
