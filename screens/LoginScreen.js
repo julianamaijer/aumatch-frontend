@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Button, View, Text,Alert,TextInput,StyleSheet } from 'react-native';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
 

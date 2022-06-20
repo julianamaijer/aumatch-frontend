@@ -1,12 +1,9 @@
 import React, {useState, useEffect, useRef} from 'react';
 import { StyleSheet, View, Alert } from 'react-native';
-import Constants from 'expo-constants';
-import TopBar from '../components/TopBar';
 import axios from 'axios';
 import BottomBar from '../components/BottomBar';
 import Swipes from '../components/Swipes';
 
-import { useFocusEffect } from '@react-navigation/native';
 
 
 const SearchScreen =({ navigation})  => {

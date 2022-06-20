@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Button, View, Text,Keyboard, Platform, StyleSheet,TextInput } from 'react-native';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import axios from "axios";
 

@@ -7,7 +7,6 @@ import HomeScreen from "./HomeScreen";
 import SearchScreen from "./SearchScreen";
 import FilterScreen from "./FilterScreen";
 import ChatScreen from "./ChatScreen";
-import ProfileScreen from "./ProfileScreen"
 
 const TabNavigator = createMaterialTopTabNavigator(
 {
