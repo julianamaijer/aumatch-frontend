@@ -32,13 +32,14 @@ const SearchScreen =({ navigation})  => {
       const { data } = await axios.get('http://192.168.15.41:8080/aumatch/v1/animais',
       { 
         params:{ 
-        dogs: dogIsEnabled,
-        cats: catIsEnabled, 
-        petSize: petSize,
-        ageLow: ageLow,
-        ageHigth: ageHigth,
-        distanceLow: distanceLow,
-        distanceHigh: distanceHigh
+        cao: dogIsEnabled,
+        gato: catIsEnabled, 
+        porte: petSize,
+        sexo: petSex,
+        idadeMinima: ageLow,
+        idadeMaxima: ageHigth,
+        distanciaMinima: distanceLow,
+        distanciaMaxima: distanceHigh
       } 
       })
       setAnimals(data)

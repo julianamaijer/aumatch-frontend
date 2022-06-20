@@ -22,33 +22,21 @@ export default function SwipeableImage({ animal, willLike, willPass }) {
             <FontAwesome name="paw" size={20} color="black"></FontAwesome>
             <Text style={[styles.textPrimary, styles.textShadow]}> {animal.nome}, {animal.idade} anos</Text>
           </View>
+          <View style={{ paddingVertical: 5 }} />
           <View style={styles.textRow}>
-            <Text style={[styles.textSecondary, styles.textShadow]}>{animal.tipoAnimal},</Text>
-            <Text style={[styles.textSecondary, styles.textShadow]}>{animal.sexo},</Text>
-            <Text style={[styles.textSecondary, styles.textShadow]}>{animal.porte}</Text>
+            <Text style={[styles.textSecondary, styles.textShadow]}>{animal.tipoAnimal}, </Text>
+            <Text style={[styles.textSecondary, styles.textShadow]}>{animal.sexo}, </Text>
+            <Text style={[styles.textSecondary, styles.textShadow]}>{animal.porte} </Text>
           </View>
           <View style={styles.textColumn}>
             <Text style={[styles.textSecondary]}></Text>
-            <Text style={[styles.textSecondary]}>"O Tulipa é um cachorro que adora brincar com crianças! 
-            Extremamente ativo, exige bastante atenção de seus tutores!"</Text>
+            <Text style={[styles.textSecondary]}>{animal.descricao}</Text>
           </View>
+          <View style={{ paddingVertical: 5 }} />
           <View style={styles.textRow}>
             <FontAwesome name="map-marker" size={20} color="black"></FontAwesome>
-            <Text style={[styles.textSecondary, styles.textShadow]}> ONG Cãopanheiro Feliz</Text>
+            <Text style={[styles.textSecondary, styles.textShadow]}> {animal.ongOrigem.razaoSocial}</Text>
             <Text style={[styles.textThird, styles.textShadow]}>  5 km</Text>
-
-          </View>
-          <View>
-            <Text style={[styles.textSecondary, styles.textShadow]}></Text>
-            <Text style={[styles.textSecondary, styles.textShadow]}>ONG Cãopanheiro Feliz</Text>
-
-            <Text style={[styles.textPrimary, styles.textShadow]}>{animal.name}</Text>
-            <Text style={[styles.textSecondary, styles.textShadow]}>{animal.idade}</Text>
-            <Text style={[styles.textSecondary, styles.textShadow]}>{animal.idade}</Text>
-          </View>
-          <View style={styles.textRow}>
-            <FontAwesome name="map-marker" size={20} color="white"></FontAwesome>
-            <Text style={[styles.textSecondary, styles.textShadow]}>{animal.porte}</Text>
           </View>
         </View>
       </View>
@@ -110,7 +98,7 @@ export default function SwipeableImage({ animal, willLike, willPass }) {
     },
     textThird: {
       color: 'black',
-      fontSize: 14,
+      fontSize: 16,
     },
     textShadow: {
       textShadowColor: 'rgba(0, 0, 0, 0.80)',

@@ -105,9 +105,9 @@ const Filter = ({navigation}) => {
                  onValueChange={(size) => setSize(size)}
                  items={[
                      { label: "Não há preferência", value: "" },
-                     { label: "Pequeno", value: "SMALL" },
-                     { label: "Médio", value: "MEDIUM" },
-                     { label: "Grande", value: "LARGE" },
+                     { label: "Pequeno", value: "pequeno" },
+                     { label: "Médio", value: "médio" },
+                     { label: "Grande", value: "grande" },
                  ]}
 				 style={{ ...pickerSelectStyles }}
 				 inputIOS={customPickerStyles.inputIOS}
