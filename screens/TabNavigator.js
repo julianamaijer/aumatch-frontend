@@ -15,7 +15,6 @@ const TabNavigator = createMaterialTopTabNavigator(
 	navigationOptions: {
 		tabBarLabel: "",
 		showLabel: ({ focused }) => {
-		console.log(focused);
 		return focused ? true : false;
 		},
 		tabBarIcon: (tabInfo) => (

@@ -51,7 +51,6 @@ export default class RegisterScreen extends Component {
   };
 
   editNextInput = () => {
-    console.log("editNextInput")
     const activeIndex = this.getActiveInputIndex();
     if (activeIndex === -1) {
         return;
@@ -82,10 +81,8 @@ export default class RegisterScreen extends Component {
         if (input.current == null) {
             return false;
         }
-        console.log("input: ", input);
         return input.current.isFocused();
     });
-    console.log("activeIndex: ", activeIndex);
     return activeIndex;
   }
 
@@ -99,7 +96,6 @@ export default class RegisterScreen extends Component {
 
   onSuccess()
   {
-      console.log("Sucesso!!!")
       this.props.navigation.navigate('Home');
   }
 
