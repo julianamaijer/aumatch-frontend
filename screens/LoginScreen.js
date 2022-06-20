@@ -2,21 +2,42 @@ import React, { Component } from 'react';
 import { Button, View, Text,Alert,TextInput,StyleSheet } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { Ionicons } from "@expo/vector-icons";
+import axios from "axios";
 
 export default class LoginScreen extends Component {
     constructor(props) {
         super(props);
         
         this.state = {
-          username: '',
-          password: '',
+          email: '',
+          senha: '',
         };
       }
       
       onLogin() {
-        const { username, password } = this.state;
+        const baseUrl = "http://192.168.15.41:8080/aumatch/v1/adotantes/login";
+        const { email, senha } = this.state;
+  
+        const configurationObject = {
+          url: baseUrl,
+          method: "POST",
+          data: { email, senha},
+        };
     
-        Alert.alert('Credentials', `${username} + ${password}`);
+        axios(configurationObject)
+          .then((response) => {
+            if (response.status === 202) {
+            this.props.navigation.navigate('Home');
+          } else {
+              Alert.alert('Usuário ou senha inválido(s)');
+              throw new Error("An error has occurred ",response);
+
+            }
+          })
+          .catch(error => {
+            console.log(error.response)
+             Alert.alert('Usuário ou senha inválido(s)');
+            });
       }
     
       render() {
@@ -31,15 +52,15 @@ export default class LoginScreen extends Component {
             <View style={{ paddingVertical:30}} />
 
             <TextInput
-              value={this.state.username}
-              onChangeText={(username) => this.setState({ username })}
-              placeholder={'Username'}
+              value={this.state.email}
+              onChangeText={(email) => this.setState({ email })}
+              placeholder={'email'}
               style={styles.input}
             />
             <TextInput
-              value={this.state.password}
-              onChangeText={(password) => this.setState({ password })}
-              placeholder={'Password'}
+              value={this.state.senha}
+              onChangeText={(senha) => this.setState({ senha })}
+              placeholder={'senha'}
               secureTextEntry={true}
               style={styles.input}
             />
@@ -47,7 +68,7 @@ export default class LoginScreen extends Component {
             <Button
               title={'Login'}
               style={styles.input}
-              onPress={() => this.props.navigation.navigate('Home')}
+              onPress={this.onLogin.bind(this)}
             />
             <Button  title="Cadastra-se" onPress={() => this.props.navigation.navigate('Register')}/>
 

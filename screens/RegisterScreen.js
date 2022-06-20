@@ -26,6 +26,7 @@ export default class RegisterScreen extends Component {
         email: '',
         telefone: '',
         idade: '',
+        senha: '',
         descricaoDoPerfil: '',
         shownomeError: false,
         showsobrenomeError: false,
@@ -33,6 +34,8 @@ export default class RegisterScreen extends Component {
         showtelefoneError: false,
         showidadeError: false,
         showDescricaoDoPerfilError: false,
+        showSenhaError: false,
+
     };
     this.submitPressed = this.submitPressed.bind(this);
   }
@@ -112,21 +115,23 @@ export default class RegisterScreen extends Component {
   }
 
   submitPressed() {
-    const { nome, sobrenome, email, telefone, idade, descricaoDoPerfil} = this.state;
+    const { nome, sobrenome, email, telefone, idade, descricaoDoPerfil, senha} = this.state;
 
-  if(nome.length < 1 || sobrenome.length < 1 || email.length < 1 || telefone.length < 1 || idade.length < 1 || descricaoDoPerfil.length < 1){
+  if(nome.length < 1 || sobrenome.length < 1 || email.length < 1 || telefone.length < 1 || idade.length < 1 || descricaoDoPerfil.length < 1 || senha.length < 4){
       this.setState({
         shownomeError: nome.length < 1,
         showsobrenomeError: sobrenome.length < 1,
         showEmailError: email.length < 1,
         showtelefoneError: telefone.length < 1,
         showidadeError: idade.length < 1,
-        showDescricaoDoPerfilError: descricaoDoPerfil.length < 1});
+        showDescricaoDoPerfilError: descricaoDoPerfil.length < 1,
+        showSenhaError: senha.length < 4
+      });
   }else{
     const configurationObject = {
       url: baseUrl,
       method: "POST",
-      data: { nome, sobrenome, email, telefone, idade, descricaoDoPerfil },
+      data: { nome, sobrenome, email, telefone, idade, descricaoDoPerfil, senha },
     };
 
     axios(configurationObject)
@@ -210,7 +215,7 @@ export default class RegisterScreen extends Component {
                         ref={this.emailInputRef}
                     />
                     {this.state.showEmailError &&
-                        <Text style={styles.errorText}>Please enter your email address.</Text>
+                        <Text style={styles.errorText}>Por favor entre com seu email.</Text>
                     }
                 </View>
 
@@ -255,6 +260,21 @@ export default class RegisterScreen extends Component {
                     />
                     {this.state.showDescricaoDoPerfilError &&
                         <Text style={styles.errorText}>Por favor preencha sua descrição do perfil.</Text>
+                    }
+                </View>
+                <View style={styles.inputTextWrapper}>
+                    <TextInput
+                        secureTextEntry={true} 
+                        placeholder="Senha"
+                        style={styles.textInput}
+                        returnKeyType="done"
+                        onSubmitEditing={this.editNextInput}
+                        onFocus={this.onInputFocus}
+                        onChangeText={(val) => {this.setState({ senha: val });}}
+                        ref={this.senhaRef}
+                    />
+                    {this.state.showSenhaError &&
+                        <Text style={styles.errorText}>Por favor preencha sua senha</Text>
                     }
                 </View>
                 <View style={styles.btnContainer}>
