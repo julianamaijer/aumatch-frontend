@@ -1,12 +1,14 @@
-import React, {useState, useEffect} from 'react';
-import { StyleSheet, View, Image, Text } from 'react-native';
+import React from 'react';
+import { StyleSheet, View, Image, Text, TextInput } from 'react-native';
 import {FontAwesome} from '@expo/vector-icons'
 
 export default function SwipeableImage({ animal, willLike, willPass }) {
     return (
       <View>
       <Image source={{ uri: animal.foto }} style={styles.photo} />
-      {willLike && (
+      {willLike && alert(`Parabéns! Você deu um match!` + 
+      ` Agora é só entrar em contato com a ` + animal.ongOrigem.razaoSocial + 
+        ` pelo número ` + animal.ongOrigem.telefone + ` para dar continuidade no processo de adoção.`) && (
         <View style={styles.likeBox}>
           <Text style={{ ...styles.textPrimary, color: '#64EDCC' }}>LIKE</Text>
         </View>

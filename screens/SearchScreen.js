@@ -29,7 +29,7 @@ const SearchScreen =({ navigation})  => {
 
 
     try {
-      const { data } = await axios.get('http://192.168.15.41:8080/aumatch/v1/animais',
+      const { data } = await axios.get('http://192.168.15.48:8080/aumatch/v1/animais',
       { 
         params:{ 
         cao: dogIsEnabled,

@@ -14,7 +14,7 @@ export default class LoginScreen extends Component {
       }
       
       onLogin() {
-        const baseUrl = "http://192.168.15.41:8080/aumatch/v1/adotantes/login";
+        const baseUrl = "http://192.168.15.48:8080/aumatch/v1/adotantes/login";
         const { email, senha } = this.state;
   
         const configurationObject = {
