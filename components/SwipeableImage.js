@@ -11,7 +11,7 @@ export default function SwipeableImage({ animal, willLike, willPass }) {
       `Agora é só entrar em contato com a ` + animal.ongOrigem.razaoSocial + 
         ` pelo número ` + animal.ongOrigem.telefone + ` para dar continuidade no processo de adoção.`,
         [
-          {text: "Cancelar"}
+          {text: "Ok!"}
         ]) && (
         <View style={styles.likeBox}>
           <Text style={{ ...styles.textPrimary, color: '#64EDCC' }}>LIKE</Text>
