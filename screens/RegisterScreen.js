@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, View, Text,Keyboard, Platform, StyleSheet,TextInput } from 'react-native';
+import { Button, View, Text,Keyboard, Platform, StyleSheet,TextInput, Alert } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import axios from "axios";
 
@@ -133,7 +133,7 @@ export default class RegisterScreen extends Component {
       .then((response) => {
         if (response.status === 201) {
         //  alert(` You have updated: ${JSON.stringify(response.data)}`);
-        alert(`Cadastro feito com sucesso!`);
+        Alert.alert(`Eba! Cadastro feito com sucesso!`);
         this.props.navigation.navigate('Home');
       } else {
         alert(`Ops, ocorreu um erro, tente mais tarde`);

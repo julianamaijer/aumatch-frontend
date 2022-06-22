@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Button, View, Text,Alert,TextInput,StyleSheet } from 'react-native';
+import { Button, View, Text,Alert,TextInput,StyleSheet, Image } from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
 
 export default class LoginScreen extends Component {
+
     constructor(props) {
         super(props);
         
@@ -41,11 +42,9 @@ export default class LoginScreen extends Component {
     
       render() {
         return (
-            
-
           <View style={styles.container}>
-
-            <Text style={{ color: "#00ced1", fontSize: 30, borderTopWidth: 0, borderLeftWidth: 10 }}>
+            <Image source= {require('../images/imagem_inicio.jpg')} style={{height: '50%', resizeMode: 'cover', width: 393, top: -120, height: 250}}/>
+            <Text style={{ color: "#00ced1", fontSize: 30, borderTopWidth: 0, borderLeftWidth: 10, top: -25 }}>
             AuMatch
 		    <Ionicons name="paw" size={18} color="#00ced1" /> </Text>
             <View style={{ paddingVertical:30}} />
@@ -90,6 +89,7 @@ export default class LoginScreen extends Component {
         borderWidth: 1,
         borderColor: 'black',
         marginBottom: 10,
+        top: -30
       },
     });
     

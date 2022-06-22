@@ -1,14 +1,18 @@
-import React from 'react';
-import { StyleSheet, View, Image, Text, TextInput } from 'react-native';
+import React, {useState} from 'react';
+import { StyleSheet, View, Image, Text, Alert } from 'react-native';
 import {FontAwesome} from '@expo/vector-icons'
 
 export default function SwipeableImage({ animal, willLike, willPass }) {
     return (
       <View>
       <Image source={{ uri: animal.foto }} style={styles.photo} />
-      {willLike && alert(`Parabéns! Você deu um match!` + 
-      ` Agora é só entrar em contato com a ` + animal.ongOrigem.razaoSocial + 
-        ` pelo número ` + animal.ongOrigem.telefone + ` para dar continuidade no processo de adoção.`) && (
+      {willLike && Alert.alert(`Você deu um match! 🐾`,
+      `Parabéns! ` + 
+      `Agora é só entrar em contato com a ` + animal.ongOrigem.razaoSocial + 
+        ` pelo número ` + animal.ongOrigem.telefone + ` para dar continuidade no processo de adoção.`,
+        [
+          {text: "Cancelar"}
+        ]) && (
         <View style={styles.likeBox}>
           <Text style={{ ...styles.textPrimary, color: '#64EDCC' }}>LIKE</Text>
         </View>
@@ -38,7 +42,7 @@ export default function SwipeableImage({ animal, willLike, willPass }) {
           <View style={styles.textRow}>
             <FontAwesome name="map-marker" size={20} color="black"></FontAwesome>
             <Text style={[styles.textSecondary, styles.textShadow]}> {animal.ongOrigem.razaoSocial}</Text>
-            <Text style={[styles.textThird, styles.textShadow]}>  5 km</Text>
+            <Text style={[styles.textThird, styles.textShadow]}>  {animal.ongOrigem.endereco.localizacao} km</Text>
           </View>
         </View>
       </View>
